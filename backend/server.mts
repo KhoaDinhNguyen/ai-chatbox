@@ -19,7 +19,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }))
 
 // Routers listen
-app.use("/chatbox", chatboxRoute);
+app.use("/chat", chatboxRoute);
 
 // Listen port
 app.listen(port, () => {

@@ -11,10 +11,16 @@ const sendPrompt = async (req: Request, res: Response) => {
     return res.status(400).json({ error: "Bad request", message: "The 'prompt' field must be a string" });
   }
 
-  const response = await AIChatbox.replyPrompt(prompt);
-  console.log(response.text);
+  const stream = await AIChatbox.replyPrompt(prompt);
 
-  res.status(200).json({ "response": response.text });
+  res.setHeader("Content-Type", "text/plain; charset=utf-8");
+  res.setHeader("Transfer-Encoding", "chunked");
+
+  for await (const chunk of stream) {
+    res.write(chunk.text || "");
+  }
+
+  res.end()
 };
 
 const chatboxController = {

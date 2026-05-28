@@ -4,14 +4,13 @@ const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY })
 
 const replyPrompt = async (prompt: string) => {
   const chat = ai.chats.create({
-    model: "gemini-2.5-flash"
+    model: "gemini-2.5-flash-lite"
   });
 
-  const response = await chat.sendMessage({
+  return chat.sendMessageStream({
     message: prompt
   });
 
-  return response;
 }
 
 const AIChatbox = {

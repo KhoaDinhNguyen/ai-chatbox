@@ -3,6 +3,6 @@ import chatboxController from "../controllers/chatboxController.mts";
 
 const chatboxRoute = express.Router();
 
-chatboxRoute.post("/chat", chatboxController.sendPrompt);
+chatboxRoute.post("/", chatboxController.sendPrompt);
 
 export default chatboxRoute;
