@@ -1,14 +1,25 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --user-chat-background: #e9ecef;
+  --ai-chat-background: #caf0f8;
+  --text-color: #000000;
+  --primary-color: #00b4d8;
 }
 
-@media (prefers-color-scheme: dark) {
+.dark {
+  --background: #1a1a1a;
+  --user-chat-background: #293241;
+  --ai-chat-background: #006494;
+  --text-color: #edf2fb;
+}
+
+/* @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
   }
-}
+} */
 
 html {
   height: 100%;

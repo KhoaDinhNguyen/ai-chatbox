@@ -1,3 +1,21 @@
-.chat-text-container p {
+.chatContainer {
+  height: max-content;
+}
+.chatContainer p {
   margin-bottom: 0;
+  font-size: 16px;
+}
+
+.userChatContainer {
+  background: var(--user-chat-background);
+  color: var(--text-color);
+}
+
+.aiChatContainer {
+  color: var(--text-color);
+}
+
+.seperateLine {
+  background-color: var(--text-color) !important;
+  opacity: 1;
 }
