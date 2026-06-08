@@ -2,7 +2,10 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-
+import Header from "@/components/Header";
+import ThemeWrapper from "@/components/ThemeWrapper";
+import { ThemeProvider } from "@/components/ThemeContext";
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -25,7 +28,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
-      <body>{children}</body>
+      <body>
+        <AppRouterCacheProvider>
+          <ThemeProvider>
+            <ThemeWrapper>
+              <Header />
+              <main className="d-flex flex-column flex-grow-1">{children}</main>
+            </ThemeWrapper>
+          </ThemeProvider>
+        </AppRouterCacheProvider>
+      </body>
     </html>
   );
 }
