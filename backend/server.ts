@@ -4,7 +4,7 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import "dotenv/config"
 // Routers
-import chatboxRoute from "./routes/chatboxRoute.mts";
+import chatboxRoute from "./routes/chatboxRoute.js";
 
 const app = express();
 const port = process.env.PORT || 8080;

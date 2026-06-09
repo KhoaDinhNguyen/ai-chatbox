@@ -1,5 +1,5 @@
 import express from "express"
-import chatboxController from "../controllers/chatboxController.mts";
+import chatboxController from "../controllers/chatboxController.js";
 
 const chatboxRoute = express.Router();
 

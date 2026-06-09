@@ -1,5 +1,5 @@
 import type { Request, Response } from "express";
-import AIChatbox from "../AIChatbox.mts";
+import AIChatbox from "../AIChatbox.js";
 
 const sendPrompt = async (req: Request, res: Response) => {
   if (!req.body) {
