@@ -4,7 +4,6 @@ export async function handleSubmit(content: string) {
   const { addMessage, setLoading, updateAnsweringOutput } = useHistory.getState();
   const url = `${process.env.NEXT_PUBLIC_SERVER_URL}/chat`;
 
-  console.log(content);
   if (!content) return;
   try {
     /** Add new user messages to the history, indicate loaders, and clear the input  */
@@ -24,6 +23,7 @@ export async function handleSubmit(content: string) {
     if (!reader) return;
 
     const decoder = new TextDecoder();
+    let buffer = "";
     let accumulateOutput = "";
 
     while (true) {
@@ -37,12 +37,27 @@ export async function handleSubmit(content: string) {
         break;
       }
 
-      const chunk = decoder.decode(value, {
-        stream: true,
-      });
+      buffer += decoder.decode(value, { stream: true });
 
-      accumulateOutput += chunk;
-      updateAnsweringOutput(accumulateOutput);
+      const lines = buffer.split("\n");
+      buffer = lines.pop() ?? "";
+
+      for (const line of lines) {
+        if (!line.trim()) continue;
+
+        const message = JSON.parse(line);
+
+        switch (message.type) {
+          case "stream":
+            accumulateOutput += message.text;
+            updateAnsweringOutput(accumulateOutput);
+            break;
+
+          case "done":
+            // setInteractionId(message.interactionId);
+            break;
+        }
+      }
     }
   } catch (err) {
     console.log(err);
