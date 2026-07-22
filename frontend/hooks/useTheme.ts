@@ -3,6 +3,7 @@
 import { useContext } from "react";
 import { ThemeContext } from "../components/ThemeContext";
 
+// Reads data from ThemeContezt
 export default function useTheme() {
   const context = useContext(ThemeContext);
 

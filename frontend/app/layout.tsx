@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import "bootstrap/dist/css/bootstrap.min.css";
 import Header from "@/components/Header";
 import ThemeWrapper from "@/components/ThemeWrapper";
 import { ThemeProvider } from "@/components/ThemeContext";
@@ -33,7 +32,7 @@ export default function RootLayout({
           <ThemeProvider>
             <ThemeWrapper>
               <Header />
-              <main className="d-flex flex-column flex-grow-1">{children}</main>
+              <main className="grow flex flex-col">{children}</main>
             </ThemeWrapper>
           </ThemeProvider>
         </AppRouterCacheProvider>

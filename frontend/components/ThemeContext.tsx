@@ -9,8 +9,10 @@ export type ThemeContextType = {
   toggleTheme: () => void;
 };
 
+// Stores the shared data
 export const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
+// Puts data into theme context
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState<Theme>("light");
 
