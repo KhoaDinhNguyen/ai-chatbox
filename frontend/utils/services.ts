@@ -1,7 +1,7 @@
 import { useHistory } from "@/hooks/useHistory";
 
 export async function handleSubmit(content: string) {
-  const { addMessage, setLoading, updateAnsweringOutput } = useHistory.getState();
+  const { addMessage, setLoading, updateAnsweringOutput, interactionId, setInteractionId } = useHistory.getState();
   const url = `${process.env.NEXT_PUBLIC_SERVER_URL}/chat`;
 
   if (!content) return;
@@ -10,12 +10,19 @@ export async function handleSubmit(content: string) {
     addMessage({ role: "user", text: content });
     setLoading(true);
 
+    const body: any = { prompt: content };
+
+    if (interactionId) {
+      body["interaction_id"] = interactionId;
+    }
+
+    console.log(body);
     const jsonResponse = await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ prompt: content }),
+      body: JSON.stringify(body),
     });
 
     const reader = jsonResponse.body?.getReader();
@@ -55,6 +62,7 @@ export async function handleSubmit(content: string) {
 
           case "done":
             // setInteractionId(message.interactionId);
+            setInteractionId(message.interactionId);
             break;
         }
       }

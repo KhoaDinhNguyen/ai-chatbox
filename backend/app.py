@@ -8,12 +8,13 @@ CORS(app)
 
 @app.route("/chat", methods=["POST"])
 def chat():
-    data = request.get_json()
+    data = request.get_json() or {}
 
-    prompt = data["prompt"]
+    prompt = data.get("prompt")
+    interaction_id = data.get("interaction_id")
 
     def stream():
-        for json in generation(prompt):
+        for json in generation(prompt, interaction_id):
             yield json
 
     return Response(stream_with_context(stream()), mimetype="text/plain")

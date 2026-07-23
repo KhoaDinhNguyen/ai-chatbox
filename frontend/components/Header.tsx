@@ -1,16 +1,19 @@
 "use client";
 
+import { useHistory } from "@/hooks/useHistory";
 import useTheme from "../hooks/useTheme";
 import { Bot, RotateCcw, Moon, Sun } from "lucide-react";
 import { motion } from "motion/react";
 
 export default function Header() {
+  const { history } = useHistory();
+
   return (
     <header className="flex items-center justify-between px-5 py-3 border-b border-border bg-card/80 backdrop-blur-sm shrink-0">
       <BrandLogo />
 
       <div className="flex items-center gap-2">
-        <NewChatButton visible={false} />
+        <NewChatButton visible={history.length > 0} />
 
         <ThemeToggleButton />
       </div>
@@ -33,11 +36,15 @@ function BrandLogo() {
 }
 
 function NewChatButton({ visible }: { visible: boolean }) {
+  const { resetHistory } = useHistory();
+
   if (!visible) return <></>;
 
   return (
     <button
-      // onClick={reset}
+      onClick={() => {
+        resetHistory();
+      }}
       className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs text-muted-foreground
                 hover:text-foreground hover:bg-secondary transition-all duration-150 border border-border">
       <RotateCcw size={12} />
